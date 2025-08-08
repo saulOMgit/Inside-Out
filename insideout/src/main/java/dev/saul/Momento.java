@@ -37,7 +37,7 @@ public class Momento {
     }
 
     public String toString() {
-        return "ID: " + id + ". Ocurrió el: " + fechaMomento +
+        return id + ". Ocurrió el: " + fechaMomento +
                 ". Título: " + titulo +
                 ". Descripción: " + descripcion +
                 ". Emoción: " + emocion.name().charAt(0) + emocion.name().substring(1).toLowerCase();
