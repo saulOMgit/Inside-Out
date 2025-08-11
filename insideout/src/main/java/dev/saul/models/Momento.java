@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 //modelo tanto esto como Emocion, y testearlas
 //luego crear carpeta vistas (solo menu principal por ahora HomeView)
-//App llama a HomeController que llama a Home
+//App llama a HomeController que llama a HomeView
 public class Momento {
     private static int contador = 1;
 
