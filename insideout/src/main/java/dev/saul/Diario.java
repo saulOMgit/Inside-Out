@@ -1,18 +1,28 @@
 package dev.saul;
 
 import java.util.LinkedList;
+
+import dev.saul.models.Emocion;
+import dev.saul.models.Momento;
+
 import java.util.Iterator;
 import java.time.LocalDate;
-
+//controlador
 public class Diario {
     private LinkedList<Momento> momentos;
 
     public Diario() {
+
+        //tiene que estar en su propia clase (por single responsability)
+        //sera carpeta db de ahi ira a repositorio y de ahi a un controlador
         momentos = new LinkedList<>();
     }
 
+
+
     public void agregarMomento(Momento momento) {
         momentos.add(momento);
+        //no imprimir desde el controlador
         System.out.println("Momento vivido añadido correctamente.");
     }
 

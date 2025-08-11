@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import dev.saul.models.Emocion;
+import dev.saul.models.Momento;
+//view, solo iniciar (llamaria a HomeController -> Homeview.printMenu())
 public class App {
 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -14,6 +17,8 @@ public class App {
         boolean salir = false;
 
         while (!salir) {
+
+            //reducir a menos system.out
             System.out.println("\nMi Diario:");
             System.out.println("1. Añadir momento");
             System.out.println("2. Ver todos los momentos disponibles");
