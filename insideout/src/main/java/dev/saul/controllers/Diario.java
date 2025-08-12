@@ -6,7 +6,6 @@ import dev.saul.models.Emocion;
 import dev.saul.models.Momento;
 import dev.saul.repositories.MomentRepository;
 
-import java.util.Iterator;
 import java.time.LocalDate;
 
 //controlador
