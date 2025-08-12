@@ -12,11 +12,11 @@ public class Momento {
     private final int id;
     private String titulo;
     private String descripcion;
-    private final Emocion emocion;
+    private final EmocionEnum emocion;
     private final LocalDate fechaMomento;
     private final LocalDateTime fechaCreacion;
 
-    public Momento(String titulo, String descripcion, Emocion emocion, LocalDate fechaMomento) {
+    public Momento(String titulo, String descripcion, EmocionEnum emocion, LocalDate fechaMomento) {
         this.id = contador++;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -45,7 +45,7 @@ public class Momento {
         this.descripcion = descripcion;
     }
 
-    public Emocion getEmocion() {
+    public EmocionEnum getEmocion() {
         return emocion;
     }
 

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import dev.saul.db.MomentDB;
-import dev.saul.models.Emocion;
+import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
 
 //Repositorio hara la vez de crud
@@ -31,7 +31,7 @@ public class MomentRepository {
         return false;
     }
 
-    public LinkedList<Momento> findByEmocion(Emocion emocion) {
+    public LinkedList<Momento> findByEmocion(EmocionEnum emocion) {
         LinkedList<Momento> filtrados = new LinkedList<>();
         for (Momento m : MomentDB.momentos) {
             if (m.getEmocion() == emocion) {

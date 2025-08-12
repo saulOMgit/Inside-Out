@@ -1,7 +1,7 @@
 package dev.saul.controllers;
 
 import dev.saul.db.MomentDB;
-import dev.saul.models.Emocion;
+import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
 import dev.saul.repositories.MomentRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,7 @@ public class DiarioControllerTest {
 
     @Test
     public void agregarMomento_debeInsertarEnRepositorio() {
-        Momento m = new Momento("Viaje", "Fui a la playa", Emocion.ALEGRIA, LocalDate.now());
+        Momento m = new Momento("Viaje", "Fui a la playa", EmocionEnum.ALEGRIA, LocalDate.now());
 
         diario.agregarMomento(m);
 
@@ -39,7 +39,7 @@ public class DiarioControllerTest {
 
     @Test
     public void eliminarMomento_debeBorrarYDevolverTrue() {
-        Momento m = new Momento("A", "D", Emocion.MIEDO, LocalDate.now());
+        Momento m = new Momento("A", "D", EmocionEnum.MIEDO, LocalDate.now());
         diario.agregarMomento(m);
 
         boolean eliminado = diario.eliminarMomento(m.getId());

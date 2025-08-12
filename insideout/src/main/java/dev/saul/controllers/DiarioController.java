@@ -1,6 +1,6 @@
 package dev.saul.controllers;
 
-import dev.saul.models.Emocion;
+import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
 import dev.saul.repositories.MomentRepository;
 
@@ -27,7 +27,7 @@ public class DiarioController {
         return repository.deleteById(id);
     }
 
-    public List<Momento> filtrarPorEmocion(Emocion emocion) {
+    public List<Momento> filtrarPorEmocion(EmocionEnum emocion) {
         return repository.findByEmocion(emocion);
     }
 

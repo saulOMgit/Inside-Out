@@ -1,7 +1,7 @@
 package dev.saul.repositories;
 
 import dev.saul.db.MomentDB;
-import dev.saul.models.Emocion;
+import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class MomentRepositoryTest {
 
     @Test
     public void agregarYObtenerMomentos_debeDevolverLosAgregados() {
-        Momento m1 = new Momento("T1", "D1", Emocion.ALEGRIA, LocalDate.now());
+        Momento m1 = new Momento("T1", "D1", EmocionEnum.ALEGRIA, LocalDate.now());
         repository.add(m1);
 
         List<Momento> all = repository.getAll();
@@ -36,7 +36,7 @@ public class MomentRepositoryTest {
 
     @Test
     public void deleteById_eliminaElementoYDevuelveTrue() {
-        Momento m = new Momento("T", "D", Emocion.MIEDO, LocalDate.now());
+        Momento m = new Momento("T", "D", EmocionEnum.MIEDO, LocalDate.now());
         repository.add(m);
 
         boolean deleted = repository.deleteById(m.getId());
@@ -47,12 +47,12 @@ public class MomentRepositoryTest {
 
     @Test
     public void findByEmocion_devuelveSoloLosCoincidentes() {
-        Momento a = new Momento("A", "D", Emocion.ALEGRIA, LocalDate.now());
-        Momento b = new Momento("B", "D", Emocion.TRISTEZA, LocalDate.now());
+        Momento a = new Momento("A", "D", EmocionEnum.ALEGRIA, LocalDate.now());
+        Momento b = new Momento("B", "D", EmocionEnum.TRISTEZA, LocalDate.now());
         repository.add(a);
         repository.add(b);
 
-        List<Momento> filtrados = repository.findByEmocion(Emocion.ALEGRIA);
+        List<Momento> filtrados = repository.findByEmocion(EmocionEnum.ALEGRIA);
 
         assertThat(filtrados, hasSize(1));
         assertThat(filtrados, contains(a));
@@ -61,8 +61,8 @@ public class MomentRepositoryTest {
     @Test
     public void findByFecha_devuelveSoloLosDelDiaSolicitud() {
         LocalDate fecha = LocalDate.of(2025, 8, 11);
-        Momento a = new Momento("A", "D", Emocion.ALEGRIA, fecha);
-        Momento b = new Momento("B", "D", Emocion.TRISTEZA, LocalDate.now());
+        Momento a = new Momento("A", "D", EmocionEnum.ALEGRIA, fecha);
+        Momento b = new Momento("B", "D", EmocionEnum.TRISTEZA, LocalDate.now());
         repository.add(a);
         repository.add(b);
 

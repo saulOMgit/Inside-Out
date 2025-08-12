@@ -10,32 +10,32 @@ public class EmocionTest {
 
     @Test
     public void debeContenerTodasLasEmocionesEnOrden() {
-        Emocion[] emocionesEsperadas = {
-            Emocion.ALEGRIA,
-            Emocion.TRISTEZA,
-            Emocion.IRA,
-            Emocion.ASCO,
-            Emocion.MIEDO,
-            Emocion.ANSIEDAD,
-            Emocion.ENVIDIA,
-            Emocion.VERGUENZA,
-            Emocion.ABURRIMIENTO,
-            Emocion.NOSTALGIA
+        EmocionEnum[] emocionesEsperadas = {
+            EmocionEnum.ALEGRIA,
+            EmocionEnum.TRISTEZA,
+            EmocionEnum.IRA,
+            EmocionEnum.ASCO,
+            EmocionEnum.MIEDO,
+            EmocionEnum.ANSIEDAD,
+            EmocionEnum.ENVIDIA,
+            EmocionEnum.VERGUENZA,
+            EmocionEnum.ABURRIMIENTO,
+            EmocionEnum.NOSTALGIA
         };
 
-        assertThat(Emocion.values(), is(emocionesEsperadas));
+        assertThat(EmocionEnum.values(), is(emocionesEsperadas));
     }
 
     @Test
     public void valueOfDebeRetornarLaEmocionCorrecta() {
-        assertThat(Emocion.valueOf("MIEDO"), is(Emocion.MIEDO));
-        assertThat(Emocion.valueOf("VERGUENZA"), is(Emocion.VERGUENZA));
+        assertThat(EmocionEnum.valueOf("MIEDO"), is(EmocionEnum.MIEDO));
+        assertThat(EmocionEnum.valueOf("VERGUENZA"), is(EmocionEnum.VERGUENZA));
     }
 
     @Test
     public void valueOfConValorInvalidoDebeLanzarExcepcion() {
         try {
-            Emocion.valueOf("FELICIDAD");
+            EmocionEnum.valueOf("FELICIDAD");
         } catch (IllegalArgumentException e) {
             assertThat(e, instanceOf(IllegalArgumentException.class));
             return;

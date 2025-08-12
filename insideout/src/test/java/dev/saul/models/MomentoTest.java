@@ -11,11 +11,11 @@ public class MomentoTest {
     @Test
     public void testConstructorYGetters() {
         LocalDate fecha = LocalDate.of(2025, 8, 11);
-        Momento momento = new Momento("Viaje", "Fui a la playa", Emocion.ALEGRIA, fecha);
+        Momento momento = new Momento("Viaje", "Fui a la playa", EmocionEnum.ALEGRIA, fecha);
 
         assertThat(momento.getTitulo(), is("Viaje"));
         assertThat(momento.getDescripcion(), is("Fui a la playa"));
-        assertThat(momento.getEmocion(), is(Emocion.ALEGRIA));
+        assertThat(momento.getEmocion(), is(EmocionEnum.ALEGRIA));
         assertThat(momento.getFechaMomento(), is(fecha));
         assertThat(momento.getId(), greaterThan(0));
         assertThat(momento.getFechaCreacion(), is(notNullValue()));
@@ -23,7 +23,7 @@ public class MomentoTest {
 
     @Test
     public void testSetters() {
-        Momento momento = new Momento("Viaje", "Fui a la playa", Emocion.ALEGRIA, LocalDate.now());
+        Momento momento = new Momento("Viaje", "Fui a la playa", EmocionEnum.ALEGRIA, LocalDate.now());
 
         momento.setTitulo("Escapada");
         momento.setDescripcion("Visité la montaña");
@@ -35,7 +35,7 @@ public class MomentoTest {
     @Test
     public void testToString() {
         LocalDate fecha = LocalDate.of(2025, 8, 11);
-        Momento momento = new Momento("Viaje", "Fui a la playa", Emocion.ALEGRIA, fecha);
+        Momento momento = new Momento("Viaje", "Fui a la playa", EmocionEnum.ALEGRIA, fecha);
 
         String texto = momento.toString();
 
