@@ -9,10 +9,10 @@ import dev.saul.repositories.MomentRepository;
 import java.time.LocalDate;
 
 //controlador
-public class Diario {
+public class DiarioController {
     private MomentRepository repository;
 
-    public Diario() {
+    public DiarioController() {
 
         // tiene que estar en su propia clase (por single responsability)
         // sera carpeta db de ahi ira a repositorio y de ahi a un controlador
