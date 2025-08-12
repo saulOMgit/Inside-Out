@@ -1,56 +1,56 @@
 package dev.saul.controllers;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import dev.saul.models.Emocion;
 import dev.saul.models.Momento;
 import dev.saul.repositories.MomentRepository;
+import dev.saul.views.DiarioView;
 
 import java.time.LocalDate;
 
 //controlador
 public class DiarioController {
-    private MomentRepository repository;
 
-    public DiarioController() {
+    
 
+    private final MomentRepository repository;
+    private final DiarioView view;
+
+    public DiarioController(MomentRepository repository, DiarioView view) {
         // tiene que estar en su propia clase (por single responsability)
         // sera carpeta db de ahi ira a repositorio y de ahi a un controlador
-        this.repository = new MomentRepository();
+        this.repository = repository;
+        this.view = view;
     }
 
     public void agregarMomento(Momento momento) {
         repository.add(momento);
-        // no imprimir desde el controlador
-        System.out.println("Momento vivido añadido correctamente.");
+        view.mostrarMensaje("Momento agregado con éxito.");
     }
 
     public void listarMomentos() {
-        LinkedList<Momento> momentos = repository.getAll();
-        if (momentos.isEmpty()) {
-            System.out.println("No hay momentos registrados.");
+        List<Momento> momentos = repository.getAll();
+        view.mostrarMomentos(momentos);
+    }
+
+    public void listarMomentosPorEmocion(Emocion emocion) {
+        List<Momento> momentos = repository.findByEmocion(emocion);
+        view.mostrarMomentos(momentos);
+    }
+
+    public void listarMomentosPorFecha(LocalDate fecha) {
+        List<Momento> momentos = repository.findByFecha(fecha);
+        view.mostrarMomentos(momentos);
+    }
+
+    public void eliminarMomento(int id) {
+        boolean eliminado = repository.deleteById(id);
+        if (eliminado) {
+            view.mostrarMensaje("Momento eliminado.");
         } else {
-            for (Momento m : momentos) {
-                System.out.println(m);
-            }
-        }
-    }
-
-    public boolean eliminarMomento(int id) {
-        return repository.deleteById(id);
-    }
-
-    public void filtrarPorEmocion(Emocion emocion) {
-        LinkedList<Momento> filtrados = repository.findByEmocion(emocion);
-        for (Momento m : filtrados) {
-            System.out.println(m);
-        }
-    }
-
-    public void filtrarPorFecha(LocalDate fecha) {
-        LinkedList<Momento> filtrados = repository.findByFecha(fecha);
-        for (Momento m : filtrados) {
-            System.out.println(m);
+            view.mostrarMensaje("No se encontró un momento con ese ID.");
         }
     }
 }
