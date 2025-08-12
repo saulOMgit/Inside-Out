@@ -13,14 +13,14 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class DiarioTest {
+public class DiarioControllerTest {
 
     private DiarioController diario;
     private MomentRepository repository;
 
     @BeforeEach
     public void setUp() {
-        // limpiar DB en memoria antes de cada test
+        // Limpiar la base de datos simulada antes de cada test
         MomentDB.momentos.clear();
         diario = new DiarioController();
         repository = new MomentRepository();
