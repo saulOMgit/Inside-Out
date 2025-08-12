@@ -8,9 +8,7 @@ import dev.saul.db.MomentDB;
 import dev.saul.models.Emocion;
 import dev.saul.models.Momento;
 
-
-//DUDAS
-//TIENE QUE TENER TANTA LOGICA EL REPOSITORIO O SOLO ACCESO
+//Repositorio hara la vez de crud
 public class MomentRepository {
 
     public void add(Momento momento) {

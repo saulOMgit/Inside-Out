@@ -1,5 +1,6 @@
 package dev.saul.models;
 //modelo
+//renombrar a enum
 public enum Emocion {
     ALEGRIA,
     TRISTEZA,
