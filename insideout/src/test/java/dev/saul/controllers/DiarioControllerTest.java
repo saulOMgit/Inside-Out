@@ -47,4 +47,17 @@ public class DiarioControllerTest {
         assertThat(eliminado, is(true));
         assertThat(repository.getAll(), is(empty()));
     }
+
+    @Test
+    public void listarMomentos_debeDevolverTodosLosAgregados() {
+        Momento m1 = new Momento("Viaje", "Playa", EmocionEnum.ALEGRIA, LocalDate.now());
+        Momento m2 = new Momento("Trabajo", "Oficina", EmocionEnum.TRISTEZA, LocalDate.now());
+        diario.agregarMomento(m1);
+        diario.agregarMomento(m2);
+
+        List<Momento> momentos = diario.listarMomentos();
+
+        assertThat(momentos, hasSize(2));
+        assertThat(momentos, contains(m1, m2));
+    }
 }
