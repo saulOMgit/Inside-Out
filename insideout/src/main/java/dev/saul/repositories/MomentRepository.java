@@ -50,4 +50,15 @@ public class MomentRepository {
         }
         return filtrados;
     }
+
+    public LinkedList<Momento> findByMesYAnio(int mes, int anio) {
+        LinkedList<Momento> filtrados = new LinkedList<>();
+        for (Momento m : MomentDB.momentos) {
+            LocalDate fecha = m.getFechaMomento();
+            if (fecha.getMonthValue() == mes && fecha.getYear() == anio) {
+                filtrados.add(m);
+            }
+        }
+        return filtrados;
+    }
 }

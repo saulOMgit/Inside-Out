@@ -5,12 +5,12 @@ import dev.saul.views.HomeView;
 public class HomeController {
 
     private final DiarioController diarioController;
-    
+
     public HomeController() {
         this.diarioController = new DiarioController();
         index();
     }
-    
+
     public void index() {
         boolean salir = false;
         while (!salir) {
@@ -37,6 +37,10 @@ public class HomeController {
                 case 5:
                     HomeView.eliminarMomento(diarioController);
                     break;
+                case 6:
+                    HomeView.listarMomentosPorEmocion(diarioController);
+                    break;
+
                 default:
                     HomeView.mostrarMensaje("Opción no válida.");
             }

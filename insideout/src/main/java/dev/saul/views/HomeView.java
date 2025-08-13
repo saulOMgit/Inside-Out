@@ -14,19 +14,21 @@ public class HomeView {
     private static final Scanner scanner = new Scanner(System.in);
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static void printMenu() {
-        System.out.println(
-                """
-                        ===== MI DIARIO =====
-                        1. Agregar momento
-                        2. Listar momentos
-                        3. Buscar momento por ID
-                        4. Editar momento
-                        5. Eliminar momento
-                        0. Salir
-                        =====================
-                        """);
-    }
+  public static void printMenu() {
+    System.out.println(
+            """
+                    ===== MI DIARIO =====
+                    1. Agregar momento
+                    2. Listar momentos
+                    3. Buscar momento por ID
+                    4. Editar momento
+                    5. Eliminar momento
+                    6. Listar momentos por emoción
+                    0. Salir
+                    =====================
+                    """);
+}
+
 
     public static int readOption() {
         System.out.print("Seleccione una opción: ");
@@ -113,6 +115,24 @@ public class HomeView {
             throw new IllegalArgumentException("Opción inválida");
         }
         return EmocionEnum.values()[opcion - 1];
+    }
+
+    public static void listarMomentosPorEmocion(DiarioController diarioController) {
+        System.out.println("Selecciona una emoción para filtrar:");
+        mostrarOpcionesEmocion();
+        int opcion = Integer.parseInt(scanner.nextLine());
+        try {
+            EmocionEnum emocion = fromIntEmocion(opcion);
+            List<Momento> momentos = diarioController.filtrarPorEmocion(emocion);
+            if (momentos.isEmpty()) {
+                mostrarMensaje("No hay momentos con esa emoción.");
+            } else {
+                System.out.println("Momentos con emoción " + capitalize(emocion.name()) + ":");
+                momentos.forEach(System.out::println);
+            }
+        } catch (IllegalArgumentException e) {
+            mostrarMensaje("Opción inválida.");
+        }
     }
 
     private static String capitalize(String str) {
