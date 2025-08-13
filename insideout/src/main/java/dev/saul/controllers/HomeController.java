@@ -40,7 +40,9 @@ public class HomeController {
                 case 6:
                     HomeView.listarMomentosPorEmocion(diarioController);
                     break;
-
+                case 7 : 
+                    HomeView.listarMomentosPorMesAno(diarioController);
+                    break;
                 default:
                     HomeView.mostrarMensaje("Opción no válida.");
             }

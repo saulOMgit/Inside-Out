@@ -34,4 +34,9 @@ public class DiarioController {
     public List<Momento> filtrarPorFecha(LocalDate fecha) {
         return repository.findByFecha(fecha);
     }
+
+    public List<Momento> filtrarPorMesAno(int mes, int ano) {
+    return repository.findByMesYAnio(mes, ano);
+}
+
 }

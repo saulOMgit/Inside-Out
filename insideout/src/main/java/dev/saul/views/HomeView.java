@@ -24,6 +24,7 @@ public class HomeView {
                     4. Editar momento
                     5. Eliminar momento
                     6. Listar momentos por emoción
+                    7. Listar momentos por mes
                     0. Salir
                     =====================
                     """);
@@ -134,6 +135,22 @@ public class HomeView {
             mostrarMensaje("Opción inválida.");
         }
     }
+
+    public static void listarMomentosPorMesAno(DiarioController diarioController) {
+    System.out.print("Ingrese el mes (1-12): ");
+    int mes = Integer.parseInt(scanner.nextLine());
+    System.out.print("Ingrese el año (yyyy): ");
+    int ano = Integer.parseInt(scanner.nextLine());
+
+    List<Momento> momentos = diarioController.filtrarPorMesAno(mes, ano);
+    if (momentos.isEmpty()) {
+        mostrarMensaje("No hay momentos registrados en ese mes.");
+    } else {
+        System.out.println("Momentos del " + mes + "/" + ano + ":");
+        momentos.forEach(System.out::println);
+    }
+}
+
 
     private static String capitalize(String str) {
         return str.charAt(0) + str.substring(1).toLowerCase();
