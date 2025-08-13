@@ -45,25 +45,44 @@ public class HomeView {
     }
 
     public static void agregarMomento(DiarioController diarioController) {
-        System.out.print("Ingrese el título: ");
-        String titulo = scanner.nextLine();
+    System.out.print("Ingrese el título: ");
+    String titulo = scanner.nextLine();
 
+    LocalDate fecha = null;
+    while (fecha == null) {
         System.out.print("Ingrese la fecha (dd/MM/yyyy): ");
-        LocalDate fecha = LocalDate.parse(scanner.nextLine(), FORMATO_FECHA);
-
-        System.out.print("Ingrese la descripción: ");
-        String descripcion = scanner.nextLine();
-
-        System.out.println("Selecciona una emoción:");
-        HomeView.mostrarOpcionesEmocion();
-        int opcion = Integer.parseInt(scanner.nextLine());
-        EmocionEnum emocion = HomeView.fromIntEmocion(opcion);
-
-        Momento momento = new Momento(titulo, descripcion, emocion, fecha);
-        diarioController.agregarMomento(momento);
-
-        mostrarMensaje("Momento vivido añadido correctamente.");
+        String input = scanner.nextLine();
+        try {
+            fecha = LocalDate.parse(input, FORMATO_FECHA);
+        } catch (Exception e) {
+            mostrarMensaje("Formato de fecha inválido. Intente de nuevo.");
+        }
     }
+
+    System.out.print("Ingrese la descripción: ");
+    String descripcion = scanner.nextLine();
+
+    System.out.println("Selecciona una emoción:");
+    mostrarOpcionesEmocion();
+    int opcion = -1;
+    while (opcion < 1 || opcion > EmocionEnum.values().length) {
+        try {
+            opcion = Integer.parseInt(scanner.nextLine());
+            if (opcion < 1 || opcion > EmocionEnum.values().length) {
+                mostrarMensaje("Opción inválida. Intente de nuevo.");
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("Debe ingresar un número válido.");
+        }
+    }
+    EmocionEnum emocion = fromIntEmocion(opcion);
+
+    Momento momento = new Momento(titulo, descripcion, emocion, fecha);
+    diarioController.agregarMomento(momento);
+
+    mostrarMensaje("Momento vivido añadido correctamente.");
+}
+
 
     public static void listarMomentos(DiarioController diarioController) {
         List<Momento> momentos = diarioController.listarMomentos();
