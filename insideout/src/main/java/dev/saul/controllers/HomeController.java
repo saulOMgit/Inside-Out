@@ -8,10 +8,9 @@ public class HomeController {
 
     public HomeController() {
         this.diarioController = new DiarioController();
-        index();
     }
 
-    public void index() {
+    public void run() {
         boolean salir = false;
         while (!salir) {
             HomeView.printMenu();
@@ -45,5 +44,9 @@ public class HomeController {
             }
         }
         HomeView.closeScanner();
+    }
+
+    public DiarioController getDiarioController() {
+        return diarioController;
     }
 }
