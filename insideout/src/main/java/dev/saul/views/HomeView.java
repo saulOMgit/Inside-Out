@@ -21,10 +21,9 @@ public class HomeView {
                     1. Agregar momento
                     2. Listar momentos
                     3. Buscar momento por ID
-                    4. Editar momento
-                    5. Eliminar momento
-                    6. Listar momentos por emoción
-                    7. Listar momentos por mes
+                    4. Eliminar momento
+                    5. Listar momentos por emoción
+                    6. Listar momentos por mes
                     0. Salir
                     =====================
                     """);

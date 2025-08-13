@@ -32,15 +32,12 @@ public class HomeController {
                     HomeView.buscarMomentoPorId(diarioController);
                     break;
                 case 4:
-                    HomeView.editarMomento(diarioController);
-                    break;
-                case 5:
                     HomeView.eliminarMomento(diarioController);
                     break;
-                case 6:
+                case 5:
                     HomeView.listarMomentosPorEmocion(diarioController);
                     break;
-                case 7 : 
+                case 6: 
                     HomeView.listarMomentosPorMesAno(diarioController);
                     break;
                 default:
