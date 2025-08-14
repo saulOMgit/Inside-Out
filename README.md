@@ -125,10 +125,9 @@ javac -d bin src/main/java/dev/saul/**/*.java
 java -cp bin dev.saul.controllers.HomeController
 ```
 
-## Notas
+## Autor
 
-- La persistencia es simulada en memoria usando `MomentDB`. Al cerrar la aplicación, los datos se pierden.
-- Los tests unitarios se pueden ejecutar para validar la funcionalidad de `HomeView` y `DiarioController`.
+Saul Otero
 
 ---
 
