@@ -4,6 +4,7 @@ import dev.saul.controllers.DiarioController;
 import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 
 public class HomeView {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
   public static void printMenu() {
@@ -170,9 +171,14 @@ public class HomeView {
 }
 
 
-    private static String capitalize(String str) {
+    static String capitalize(String str) {
         return str.charAt(0) + str.substring(1).toLowerCase();
     }
+
+    public static void setScanner(InputStream in) {
+    scanner = new Scanner(in);
+}
+
 
     public static void closeScanner() {
         scanner.close();
