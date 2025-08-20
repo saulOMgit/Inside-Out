@@ -2,6 +2,8 @@ package dev.saul.views;
 
 import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
+import dev.saul.models.PositividadEnum;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,21 +73,27 @@ class DiarioViewTest {
         assertThat(outContent.toString(), equalTo(mensaje + System.lineSeparator()));
     }
 
-   @Test
+  @Test
 void mostrarMomentos_shouldDisplayMomentsInCorrectFormat() {
     // Given
-    Momento momento = new Momento("Mi título", "Mi descripción", EmocionEnum.ALEGRIA, LocalDate.of(2023, 5, 15));
+    LocalDate fecha = LocalDate.of(2023, 5, 15);
+    Momento momento = new Momento("Mi título", fecha, "Mi descripción",
+            EmocionEnum.ALEGRIA, PositividadEnum.BUENO);
     List<Momento> momentos = List.of(momento);
-    
+
     // When
     diarioView.mostrarMomentos(momentos);
-    
+
     // Then
     String output = outContent.toString();
-    assertThat(output, startsWith(momento.getId() + ". Ocurrió el: 2023-05-15"));
-    assertThat(output, containsString("Título: Mi título"));
-    assertThat(output, containsString("Descripción: Mi descripción"));
-    assertThat(output, containsString("Emoción: ALEGRIA"));
-    assertThat(output, endsWith(System.lineSeparator()));
+
+    // Usar el id real generado
+    assertThat(output, containsString("id=" + momento.getId()));
+    assertThat(output, containsString("titulo=Mi título"));
+    assertThat(output, containsString("descripcion=Mi descripción"));
+    assertThat(output, containsString("emocion=ALEGRIA"));
+    assertThat(output, containsString("positividad=BUENO"));
+    assertThat(output, containsString("fechaMomento=" + fecha));
 }
+
 }
