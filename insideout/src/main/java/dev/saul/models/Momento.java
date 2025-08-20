@@ -16,6 +16,8 @@ public class Momento {
     private final LocalDate fechaMomento;
     private final LocalDateTime fechaCreacion;
 
+    private PositividadEnum positividad;
+
     public Momento(String titulo, String descripcion, EmocionEnum emocion, LocalDate fechaMomento) {
         this.id = contador++;
         this.titulo = titulo;
@@ -23,6 +25,17 @@ public class Momento {
         this.emocion = emocion;
         this.fechaMomento = fechaMomento;
         this.fechaCreacion = LocalDateTime.now();
+    }
+
+    public Momento(int id, String titulo, String descripcion, EmocionEnum emocion, LocalDate fechaMomento,
+            LocalDateTime fechaCreacion, PositividadEnum positividad) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.emocion = emocion;
+        this.fechaMomento = fechaMomento;
+        this.fechaCreacion = fechaCreacion;
+        this.positividad = positividad;
     }
 
     public int getId() {
@@ -57,12 +70,23 @@ public class Momento {
         return fechaCreacion;
     }
 
+    
+
+    public PositividadEnum getPositividad() {
+        return positividad;
+    }
+
+    public void setPositividad(PositividadEnum positividad) {
+        this.positividad = positividad;
+    }
+
     @Override
     public String toString() {
-        return id + ". Ocurrió el: " + fechaMomento +
-                ". Título: " + titulo +
-                ". Descripción: " + descripcion +
-                ". Emoción: " + emocion.name();
+        return "Momento [id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", emocion=" + emocion
+                + ", fechaMomento=" + fechaMomento + ", fechaCreacion=" + fechaCreacion + ", positividad=" + positividad
+                + "]";
     }
+
+    
 
 }
