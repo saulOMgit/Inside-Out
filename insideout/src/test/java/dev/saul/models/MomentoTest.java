@@ -32,16 +32,27 @@ public class MomentoTest {
         assertThat(momento.getDescripcion(), is("Visité la montaña"));
     }
 
-    @Test
-    public void testToString() {
-        LocalDate fecha = LocalDate.of(2025, 8, 11);
-        Momento momento = new Momento("Viaje", "Fui a la playa", EmocionEnum.ALEGRIA, fecha);
+@Test
+public void testToString() {
+    LocalDate fecha = LocalDate.of(2025, 8, 11);
 
-        String texto = momento.toString();
+    Momento momento = new Momento(
+            "Viaje",
+            fecha,
+            "Fui a la playa",
+            EmocionEnum.ALEGRIA,
+            PositividadEnum.BUENO
+    );
 
-        assertThat(texto, containsString("Ocurrió el: " + fecha));
-        assertThat(texto, containsString("Título: Viaje"));
-        assertThat(texto, containsString("Descripción: Fui a la playa"));
-        assertThat(texto, containsString("Emoción: ALEGRIA"));
-    }
+    String texto = momento.toString();
+
+    assertThat(texto, containsString("titulo=Viaje"));
+    assertThat(texto, containsString("descripcion=Fui a la playa"));
+    assertThat(texto, containsString("emocion=ALEGRIA"));
+    assertThat(texto, containsString("fechaMomento=" + fecha));
+    assertThat(texto, containsString("positividad=BUENO"));
+}
+
+
+
 }
