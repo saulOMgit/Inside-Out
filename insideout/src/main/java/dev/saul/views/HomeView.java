@@ -3,6 +3,7 @@ package dev.saul.views;
 import dev.saul.controllers.DiarioController;
 import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
+import dev.saul.models.PositividadEnum;
 
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -15,21 +16,20 @@ public class HomeView {
     private static Scanner scanner = new Scanner(System.in);
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-  public static void printMenu() {
-    System.out.println(
-            """
-                    ===== MI DIARIO =====
-                    1. Agregar momento
-                    2. Listar momentos
-                    3. Buscar momento por ID
-                    4. Eliminar momento
-                    5. Listar momentos por emoción
-                    6. Listar momentos por mes
-                    0. Salir
-                    =====================
-                    """);
-}
-
+    public static void printMenu() {
+        System.out.println(
+                """
+                        ===== MI DIARIO =====
+                        1. Agregar momento
+                        2. Listar momentos
+                        3. Buscar momento por ID
+                        4. Eliminar momento
+                        5. Listar momentos por emoción
+                        6. Listar momentos por mes
+                        0. Salir
+                        =====================
+                        """);
+    }
 
     public static int readOption() {
         System.out.print("Seleccione una opción: ");
@@ -45,44 +45,49 @@ public class HomeView {
     }
 
     public static void agregarMomento(DiarioController diarioController) {
-    System.out.print("Ingrese el título: ");
-    String titulo = scanner.nextLine();
+        System.out.print("Ingrese el título: ");
+        String titulo = scanner.nextLine();
 
-    LocalDate fecha = null;
-    while (fecha == null) {
-        System.out.print("Ingrese la fecha (dd/MM/yyyy): ");
-        String input = scanner.nextLine();
-        try {
-            fecha = LocalDate.parse(input, FORMATO_FECHA);
-        } catch (Exception e) {
-            mostrarMensaje("Formato de fecha inválido. Intente de nuevo.");
-        }
-    }
-
-    System.out.print("Ingrese la descripción: ");
-    String descripcion = scanner.nextLine();
-
-    System.out.println("Selecciona una emoción:");
-    mostrarOpcionesEmocion();
-    int opcion = -1;
-    while (opcion < 1 || opcion > EmocionEnum.values().length) {
-        try {
-            opcion = Integer.parseInt(scanner.nextLine());
-            if (opcion < 1 || opcion > EmocionEnum.values().length) {
-                mostrarMensaje("Opción inválida. Intente de nuevo.");
+        LocalDate fecha = null;
+        while (fecha == null) {
+            System.out.print("Ingrese la fecha (dd/MM/yyyy): ");
+            String input = scanner.nextLine();
+            try {
+                fecha = LocalDate.parse(input, FORMATO_FECHA);
+            } catch (Exception e) {
+                mostrarMensaje("Formato de fecha inválido. Intente de nuevo.");
             }
-        } catch (NumberFormatException e) {
-            mostrarMensaje("Debe ingresar un número válido.");
         }
+
+        System.out.print("Ingrese la descripción: ");
+        String descripcion = scanner.nextLine();
+
+        System.out.println("Selecciona una emoción:");
+        mostrarOpcionesEmocion();
+        int opcion = -1;
+        while (opcion < 1 || opcion > EmocionEnum.values().length) {
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+                if (opcion < 1 || opcion > EmocionEnum.values().length) {
+                    mostrarMensaje("Opción inválida. Intente de nuevo.");
+                }
+            } catch (NumberFormatException e) {
+                mostrarMensaje("Debe ingresar un número válido.");
+            }
+        }
+        EmocionEnum emocion = fromIntEmocion(opcion);
+
+        System.out.println("¿El momento fue bueno o malo? (1 = Bueno, 2 = Malo)");
+        opcion = scanner.nextInt();
+        scanner.nextLine(); // limpiar buffer
+
+        PositividadEnum positividad = (opcion == 1) ? PositividadEnum.BUENO : PositividadEnum.MALO;
+
+        Momento momento = new Momento(titulo, fecha, descripcion, emocion, positividad);
+        diarioController.agregarMomento(momento);
+
+        mostrarMensaje("Momento vivido añadido correctamente.");
     }
-    EmocionEnum emocion = fromIntEmocion(opcion);
-
-    Momento momento = new Momento(titulo, descripcion, emocion, fecha);
-    diarioController.agregarMomento(momento);
-
-    mostrarMensaje("Momento vivido añadido correctamente.");
-}
-
 
     public static void listarMomentos(DiarioController diarioController) {
         List<Momento> momentos = diarioController.listarMomentos();
@@ -156,29 +161,27 @@ public class HomeView {
     }
 
     public static void listarMomentosPorMesAno(DiarioController diarioController) {
-    System.out.print("Ingrese el mes (1-12): ");
-    int mes = Integer.parseInt(scanner.nextLine());
-    System.out.print("Ingrese el año (yyyy): ");
-    int ano = Integer.parseInt(scanner.nextLine());
+        System.out.print("Ingrese el mes (1-12): ");
+        int mes = Integer.parseInt(scanner.nextLine());
+        System.out.print("Ingrese el año (yyyy): ");
+        int ano = Integer.parseInt(scanner.nextLine());
 
-    List<Momento> momentos = diarioController.filtrarPorMesAno(mes, ano);
-    if (momentos.isEmpty()) {
-        mostrarMensaje("No hay momentos registrados en ese mes.");
-    } else {
-        System.out.println("Momentos del " + mes + "/" + ano + ":");
-        momentos.forEach(System.out::println);
+        List<Momento> momentos = diarioController.filtrarPorMesAno(mes, ano);
+        if (momentos.isEmpty()) {
+            mostrarMensaje("No hay momentos registrados en ese mes.");
+        } else {
+            System.out.println("Momentos del " + mes + "/" + ano + ":");
+            momentos.forEach(System.out::println);
+        }
     }
-}
-
 
     static String capitalize(String str) {
         return str.charAt(0) + str.substring(1).toLowerCase();
     }
 
     public static void setScanner(InputStream in) {
-    scanner = new Scanner(in);
-}
-
+        scanner = new Scanner(in);
+    }
 
     public static void closeScanner() {
         scanner.close();

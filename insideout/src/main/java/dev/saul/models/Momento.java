@@ -38,6 +38,18 @@ public class Momento {
         this.positividad = positividad;
     }
 
+
+    public Momento(String titulo, LocalDate fecha, String descripcion, EmocionEnum emocion,
+            PositividadEnum positividad) {    
+        this.id = contador++;
+        this.titulo = titulo;
+        this.fechaMomento = fecha;
+        this.descripcion = descripcion;
+        this.emocion = emocion;
+        this.positividad = positividad;
+        this.fechaCreacion = LocalDateTime.now();
+    }
+
     public int getId() {
         return id;
     }
