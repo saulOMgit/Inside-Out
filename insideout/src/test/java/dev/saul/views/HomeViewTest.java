@@ -3,6 +3,8 @@ package dev.saul.views;
 import dev.saul.controllers.DiarioController;
 import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
+import dev.saul.models.PositividadEnum;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,26 +78,29 @@ class HomeViewTest {
         assertThat(outContent.toString(), containsString(testMessage));
     }
 
-    @Test
-    void agregarMomento_shouldAddMomentoToController() {
-        // Configurar entrada simulada
-        String input = "Título prueba\n01/01/2023\nDescripción prueba\n1\n";
-        provideInput(input);
+ @Test
+void agregarMomento_shouldAddMomentoToController() {
+    // Configurar entrada simulada
+    String input = "Título prueba\n01/01/2023\nDescripción prueba\n1\n1\n"; 
+    provideInput(input);
 
-        // Ejecutar el método
-        HomeView.agregarMomento(diarioController);
+    // Ejecutar el método
+    HomeView.agregarMomento(diarioController);
 
-        // Verificar salida
-        String output = outContent.toString();
-        assertThat(output, containsString("Ingrese el título:"));
-        assertThat(output, containsString("Ingrese la fecha (dd/MM/yyyy):"));
-        assertThat(output, containsString("Ingrese la descripción:"));
-        assertThat(output, containsString("Selecciona una emoción:"));
-        assertThat(output, containsString("Momento vivido añadido correctamente."));
+    // Verificar salida
+    String output = outContent.toString();
+    assertThat(output, containsString("Ingrese el título:"));
+    assertThat(output, containsString("Ingrese la fecha (dd/MM/yyyy):"));
+    assertThat(output, containsString("Ingrese la descripción:"));
+    assertThat(output, containsString("Selecciona una emoción:"));
+    assertThat(output, containsString("¿El momento fue bueno o malo? (1 = Bueno, 2 = Malo)")); // <-- ajustado
+    assertThat(output, containsString("Momento vivido añadido correctamente."));
 
-        // Verificar interacción con el controlador
-        verify(diarioController).agregarMomento(any(Momento.class));
-    }
+    // Verificar interacción con el controlador
+    verify(diarioController).agregarMomento(any(Momento.class));
+}
+
+
 
     @Test
     void listarMomentos_withEmptyList_shouldShowEmptyMessage() {
@@ -118,18 +123,28 @@ class HomeViewTest {
         assertThat(output, containsString(momento.toString()));
     }
 
-    @Test
-    void buscarMomentoPorId_withExistingId_shouldShowMoment() {
-        Momento momento = new Momento("Título", "Descripción", EmocionEnum.ALEGRIA, LocalDate.now());
-        // momento.setId(1);
-        when(diarioController.listarMomentos()).thenReturn(List.of(momento));
+   @Test
+void buscarMomentoPorId_withExistingId_shouldShowMoment() {
+    LocalDate fecha = LocalDate.of(2025, 8, 11);
+    Momento momento = new Momento(
+        "Título",
+        fecha,
+        "Descripción",
+        EmocionEnum.ALEGRIA,
+        PositividadEnum.BUENO
+    );
 
-        provideInput("1");
-        HomeView.buscarMomentoPorId(diarioController);
+    when(diarioController.listarMomentos()).thenReturn(List.of(momento));
 
-        String output = outContent.toString();
-        assertThat(output, containsString(momento.toString()));
-    }
+    // usar el id real generado
+    provideInput(momento.getId() + "\n");
+
+    HomeView.buscarMomentoPorId(diarioController);
+
+    String output = outContent.toString();
+    assertThat(output, containsString(momento.toString()));
+}
+
 
     @Test
     void buscarMomentoPorId_withNonExistingId_shouldShowNotFound() {
