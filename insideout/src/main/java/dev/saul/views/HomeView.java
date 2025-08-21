@@ -5,6 +5,7 @@ import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
 import dev.saul.models.PositividadEnum;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +29,7 @@ public class HomeView {
                         6. Listar momentos por mes
                         7. Listar Momentos Buenos
                         8. Listar Momentos Malos
+                        9. Exportar momentos a CSV
                         0. Salir
                         =====================
                         """);
@@ -209,5 +211,16 @@ public class HomeView {
             momentos.forEach(System.out::println);
         }
     }
+    //csv
+    public static void exportarMomentosACSV(DiarioController diarioController) {
+    System.out.print("Ingrese nombre del archivo CSV: ");
+    String rutaArchivo = scanner.nextLine();
+    try {
+        diarioController.exportarMomentosACSV(rutaArchivo);
+        mostrarMensaje("Momentos exportados exitosamente a la carpeta del proyecto " + rutaArchivo);
+    } catch (IOException e) {
+        mostrarMensaje("Error al exportar momentos a CSV: " + e.getMessage());
+    }
+}
 
 }

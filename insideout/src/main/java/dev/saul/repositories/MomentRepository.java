@@ -1,8 +1,12 @@
 package dev.saul.repositories;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import com.opencsv.CSVWriter;
 
 import dev.saul.db.MomentDB;
 import dev.saul.models.EmocionEnum;
@@ -73,5 +77,24 @@ public class MomentRepository {
         }
         return filtrados;
     }
+        //csv
+         public void exportarAMomentoCSV(String rutaArchivo) throws IOException {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(rutaArchivo))) {
+            // Escribir encabezados
+            writer.writeNext(new String[]{"ID", "Título", "Descripción", "Emoción", "Positividad", "Fecha Momento", "Fecha Creación"});
 
+            // Escribir datos de los momentos
+            for (Momento momento : MomentDB.momentos) {
+                writer.writeNext(new String[]{
+                        String.valueOf(momento.getId()),
+                        momento.getTitulo(),
+                        momento.getDescripcion(),
+                        momento.getEmocion().name(),
+                        momento.getPositividad().name(),
+                        momento.getFechaMomento().toString(),
+                        momento.getFechaCreacion().toString()
+                });
+            }
+        }
+    }
 }

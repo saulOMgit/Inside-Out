@@ -4,6 +4,8 @@ import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
 import dev.saul.models.PositividadEnum;
 import dev.saul.repositories.MomentRepository;
+
+import java.io.IOException;
 import java.util.List;
 
 public class DiarioController {
@@ -42,5 +44,11 @@ public class DiarioController {
     public List<Momento> listarMomentosMalos() {
         return repository.findByPositividad(PositividadEnum.MALO);
     }
+
+    //csv
+    public void exportarMomentosACSV(String rutaArchivo) throws IOException {
+    repository.exportarAMomentoCSV(rutaArchivo);
+}
+
 
 }

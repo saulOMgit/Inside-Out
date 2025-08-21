@@ -45,6 +45,9 @@ public class HomeController {
                 case 8:
                     HomeView.listarMomentosMalos(diarioController);
                     break;
+                case 9:
+                    HomeView.exportarMomentosACSV(diarioController);
+                    break;
                 default:
                     HomeView.mostrarMensaje("Opción no válida.");
             }
