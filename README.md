@@ -111,9 +111,11 @@ classDiagram
     Momento --> EmocionEnum : tiene
     DiarioView --> Momento : muestra
 ```
+
 ## Test Coverage
 
 ![Test](./insideout/img/test.png)
+
 ## Cómo Ejecutar
 
 1. Clonar el repositorio.
@@ -132,4 +134,3 @@ Saul Otero
 ---
 
 © 2025 Inside Out Project
-
