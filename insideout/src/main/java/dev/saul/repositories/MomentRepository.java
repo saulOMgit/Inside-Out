@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import dev.saul.db.MomentDB;
 import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
+import dev.saul.models.PositividadEnum;
 
 //Repositorio hara la vez de crud
 public class MomentRepository {
@@ -61,4 +62,16 @@ public class MomentRepository {
         }
         return filtrados;
     }
+
+    // Sprint 2
+    public LinkedList<Momento> findByPositividad(PositividadEnum positividad) {
+        LinkedList<Momento> filtrados = new LinkedList<>();
+        for (Momento m : MomentDB.momentos) {
+            if (m.getPositividad() == positividad) {
+                filtrados.add(m);
+            }
+        }
+        return filtrados;
+    }
+
 }

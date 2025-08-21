@@ -2,6 +2,7 @@ package dev.saul.controllers;
 
 import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
+import dev.saul.models.PositividadEnum;
 import dev.saul.repositories.MomentRepository;
 import java.util.List;
 
@@ -30,7 +31,16 @@ public class DiarioController {
     }
 
     public List<Momento> filtrarPorMesAno(int mes, int ano) {
-    return repository.findByMesYAnio(mes, ano);
-}
+        return repository.findByMesYAnio(mes, ano);
+    }
+
+    // Sprint 2
+    public List<Momento> listarMomentosBuenos() {
+        return repository.findByPositividad(PositividadEnum.BUENO);
+    }
+
+    public List<Momento> listarMomentosMalos() {
+        return repository.findByPositividad(PositividadEnum.MALO);
+    }
 
 }
