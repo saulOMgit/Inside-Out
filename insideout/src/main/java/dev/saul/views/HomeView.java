@@ -26,6 +26,8 @@ public class HomeView {
                         4. Eliminar momento
                         5. Listar momentos por emoción
                         6. Listar momentos por mes
+                        7. Listar Momentos Buenos
+                        8. Listar Momentos Malos
                         0. Salir
                         =====================
                         """);
@@ -186,4 +188,26 @@ public class HomeView {
     public static void closeScanner() {
         scanner.close();
     }
+
+    // Sprint2
+    public static void listarMomentosBuenos(DiarioController diarioController) {
+        List<Momento> momentos = diarioController.listarMomentosBuenos();
+        if (momentos.isEmpty()) {
+            mostrarMensaje("No hay momentos buenos registrados.");
+        } else {
+            System.out.println("Momentos Buenos:");
+            momentos.forEach(System.out::println);
+        }
+    }
+
+    public static void listarMomentosMalos(DiarioController diarioController) {
+        List<Momento> momentos = diarioController.listarMomentosMalos();
+        if (momentos.isEmpty()) {
+            mostrarMensaje("No hay momentos malos registrados.");
+        } else {
+            System.out.println("Momentos Malos:");
+            momentos.forEach(System.out::println);
+        }
+    }
+
 }
