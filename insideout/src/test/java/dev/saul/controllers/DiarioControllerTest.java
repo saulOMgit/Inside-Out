@@ -3,6 +3,7 @@ package dev.saul.controllers;
 import dev.saul.db.MomentDB;
 import dev.saul.models.EmocionEnum;
 import dev.saul.models.Momento;
+import dev.saul.models.PositividadEnum;
 import dev.saul.repositories.MomentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,4 +61,40 @@ public class DiarioControllerTest {
         assertThat(momentos, hasSize(2));
         assertThat(momentos, contains(m1, m2));
     }
+
+    //Sprint 2
+    @Test
+public void listarMomentosBuenos_debeDevolverSoloLosBuenos() {
+    Momento bueno = new Momento("Fiesta", "Con amigos", EmocionEnum.ALEGRIA, LocalDate.now());
+    bueno.setPositividad(PositividadEnum.BUENO);
+
+    Momento malo = new Momento("Examen", "Suspendido", EmocionEnum.TRISTEZA, LocalDate.now());
+    malo.setPositividad(PositividadEnum.MALO);
+
+    diario.agregarMomento(bueno);
+    diario.agregarMomento(malo);
+
+    List<Momento> buenos = diario.listarMomentosBuenos();
+
+    assertThat(buenos, hasSize(1));
+    assertThat(buenos.get(0).getPositividad(), is(PositividadEnum.BUENO));
+}
+
+@Test
+public void listarMomentosMalos_debeDevolverSoloLosMalos() {
+    Momento bueno = new Momento("Fiesta", "Con amigos", EmocionEnum.ALEGRIA, LocalDate.now());
+    bueno.setPositividad(PositividadEnum.BUENO);
+
+    Momento malo = new Momento("Examen", "Suspendido", EmocionEnum.TRISTEZA, LocalDate.now());
+    malo.setPositividad(PositividadEnum.MALO);
+
+    diario.agregarMomento(bueno);
+    diario.agregarMomento(malo);
+
+    List<Momento> malos = diario.listarMomentosMalos();
+
+    assertThat(malos, hasSize(1));
+    assertThat(malos.get(0).getPositividad(), is(PositividadEnum.MALO));
+}
+
 }
