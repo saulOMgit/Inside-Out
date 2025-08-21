@@ -34,7 +34,7 @@ public class PeliculaController {
 
     // Exportar películas a CSV
     public void exportarPeliculasACSV(String rutaArchivo) throws IOException {
-        repository.exportarACSV(rutaArchivo);
+        repository.exportToCSV(rutaArchivo);
     }
 
     // Eliminar película por IMDb ID
